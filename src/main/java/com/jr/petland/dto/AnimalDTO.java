@@ -1,10 +1,13 @@
 package com.jr.petland.dto;
 
 import com.jr.petland.entities.Animal;
+import com.jr.petland.enums.Sexo;
+import com.jr.petland.enums.TipoAnimal;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+
+import java.util.Date;
 
 @Getter
 @NoArgsConstructor
@@ -12,18 +15,18 @@ import lombok.Setter;
 public class AnimalDTO {
 
     private Long id;
-    private String tipo;
+    private TipoAnimal tipoAnimal;
     private String nome;
-    private String sexo;
-    private Integer idade;
+    private Sexo sexo;
+    private Date dataNascimento;
     private String raca;
 
     public AnimalDTO(Animal animal){
         id = animal.getId();
-        tipo = animal.getTipo();
+        tipoAnimal = animal.getTipoAnimal();
         nome = animal.getNome();
         sexo = animal.getSexo();
-        idade = animal.getIdade();
+        dataNascimento = animal.getDataNascimento();
         raca = animal.getRaca();
     }
 }

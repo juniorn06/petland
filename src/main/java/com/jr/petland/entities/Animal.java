@@ -1,7 +1,11 @@
 package com.jr.petland.entities;
 
+import com.jr.petland.enums.Sexo;
+import com.jr.petland.enums.TipoAnimal;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.Date;
 
 @Entity
 @NoArgsConstructor
@@ -14,9 +18,9 @@ public class Animal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String tipo;
+    private TipoAnimal tipoAnimal;
     private String nome;
-    private String sexo;
-    private Integer idade;
+    private Sexo sexo;
+    private Date dataNascimento;
     private String raca;
 }
