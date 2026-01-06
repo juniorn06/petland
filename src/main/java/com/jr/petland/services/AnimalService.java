@@ -67,10 +67,10 @@ public class AnimalService {
     }
 
     private void copyDtoToEntity(AnimalDTO dto, Animal animal){
-        animal.setTipo(dto.getTipo());
+        animal.setTipoAnimal(dto.getTipoAnimal());
         animal.setNome(dto.getNome());
         animal.setSexo(dto.getSexo());
-        animal.setIdade(dto.getIdade());
+        animal.setDataNascimento(dto.getDataNascimento());
         animal.setRaca(dto.getRaca());
     }
 }
