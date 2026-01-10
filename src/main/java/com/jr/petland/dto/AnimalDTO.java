@@ -3,6 +3,8 @@ package com.jr.petland.dto;
 import com.jr.petland.entities.Animal;
 import com.jr.petland.enums.Sexo;
 import com.jr.petland.enums.TipoAnimal;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +18,8 @@ public class AnimalDTO {
 
     private Long id;
     private TipoAnimal tipoAnimal;
+    @NotBlank(message = "O nome é obrigatório")
+    @Pattern(regexp = "^[a-zA-ZÀ-ÿ ]+$", message = "O nome não pode conter caracteres especiais")
     private String nome;
     private Sexo sexo;
     private LocalDate dataNascimento;

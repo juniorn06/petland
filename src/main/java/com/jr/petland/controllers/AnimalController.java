@@ -2,6 +2,7 @@ package com.jr.petland.controllers;
 
 import com.jr.petland.dto.AnimalDTO;
 import com.jr.petland.services.AnimalService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ public class AnimalController {
     private AnimalService animalService;
 
     @PostMapping(value = "insertAnimal")
-    public ResponseEntity<AnimalDTO> insertAnimal(@RequestBody AnimalDTO dto){
+    public ResponseEntity<AnimalDTO> insertAnimal(@Valid @RequestBody AnimalDTO dto){
         dto = animalService.insertAnimal(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/id").buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
@@ -41,7 +42,7 @@ public class AnimalController {
     }
 
     @PutMapping(value = "updateAnimal/{id}")
-    public ResponseEntity<AnimalDTO> updateAnimal(@PathVariable Long id, @RequestBody AnimalDTO dto){
+    public ResponseEntity<AnimalDTO> updateAnimal(@Valid @PathVariable Long id, @RequestBody AnimalDTO dto){
         return ResponseEntity.ok().body(animalService.updataAnimal(id, dto));
     }
 
