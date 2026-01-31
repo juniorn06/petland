@@ -64,6 +64,7 @@ public class AnimalService {
         if (!animalRepository.existsById(id)){
             throw new ResourceNotFoundException("Animal não encontrado!");
         }
+        animalRepository.deleteById(id);
     }
 
     private void copyDtoToEntity(AnimalDTO dto, Animal animal){
