@@ -43,7 +43,7 @@ public class AnimalController {
 
     @PutMapping(value = "updateAnimal/{id}")
     public ResponseEntity<AnimalDTO> updateAnimal(@Valid @PathVariable Long id, @RequestBody AnimalDTO dto){
-        return ResponseEntity.ok().body(animalService.updataAnimal(id, dto));
+        return ResponseEntity.ok().body(animalService.updateAnimal(id, dto));
     }
 
     @DeleteMapping(value = "deleteAnimal/{id}")

@@ -47,7 +47,7 @@ public class AnimalService {
     }
 
     @Transactional()
-    public AnimalDTO updataAnimal(Long id, AnimalDTO dto){
+    public AnimalDTO updateAnimal(Long id, AnimalDTO dto){
         try {
             Animal animal = animalRepository.getReferenceById(id);
             copyDtoToEntity(dto, animal);

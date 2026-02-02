@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,6 +25,8 @@ public class Cliente {
     private String endereco;
     @Column(name = "CPF")
     private String cpf;
+    @Column(name = "CIDADE")
+    private String cidade;
     @Column(name = "EMAIL")
     private String email;
 }
