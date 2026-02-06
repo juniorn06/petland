@@ -23,10 +23,12 @@ public class Cliente {
     private String nome;
     @Column(name = "ENDERECO")
     private String endereco;
-    @Column(name = "CPF")
-    private String cpf;
+    @Column(name = "BAIRRO")
+    private String bairro;
     @Column(name = "CIDADE")
     private String cidade;
+    @Column(name = "CPF")
+    private String cpf;
     @Column(name = "EMAIL")
     private String email;
 }
