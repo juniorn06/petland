@@ -16,23 +16,25 @@ public class ClienteDTO {
     @NotBlank(message = "O campo nome é obrigatório!")
     @Pattern(regexp = "^[a-zA-ZÀ-ÿ ]+$", message = "O nome não pode conter caracteres especiais!")
     private String nome;
-    @NotBlank(message = "O endereço é obrigatório!")
-    @Pattern(regexp = "^[a-zA-ZÀ-ÿ ]+$", message = "O endereço não pode conter caracteres especiais!")
+    @NotBlank(message = "O campo endereço é obrigatório!")
     private String endereco;
-    @NotBlank(message = "O campo CPF é obrigatório!")
-    @Pattern(regexp = "^[a-zA-ZÀ-ÿ ]+$", message = "O cpf não pode conter caracteres especiais!")
-    private String cpf;
+    @NotBlank(message = "O campo bairro é obrigatório!")
+    @Pattern(regexp = "^[a-zA-ZÀ-ÿ ]+$", message = "O campo bairro não pode conter caracteres especiais!")
+    private String bairro;
     @NotBlank(message = "O campo cidade é obrigatório!")
-    @Pattern(regexp = "^[a-zA-ZÀ-ÿ ]+$", message = "A cidade não pode conter caracteres especiais")
+    @Pattern(regexp = "^[a-zA-ZÀ-ÿ ]+$", message = "O campo cidade não pode conter caracteres especiais")
     private String cidade;
+    @NotBlank(message = "O campo CPF é obrigatório!")
+    private String cpf;
     private String email;
 
     public ClienteDTO(Cliente cliente){
         id = cliente.getId();
         nome = cliente.getNome();
         endereco = cliente.getEndereco();
-        cpf = cliente.getCpf();
+        bairro = cliente.getBairro();
         cidade = cliente.getCidade();
+        cpf = cliente.getCpf();
         email = cliente.getEmail();
     }
 }

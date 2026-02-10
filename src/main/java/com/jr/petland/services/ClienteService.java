@@ -68,10 +68,11 @@ public class ClienteService {
     }
 
     private void copyDtoToEntity(ClienteDTO dto, Cliente cliente){
-        cliente.setNome(cliente.getNome());
-        cliente.setEndereco(cliente.getEndereco());
-        cliente.setCpf(cliente.getCpf());
-        cliente.setCidade(cliente.getCidade());
-        cliente.setEmail(cliente.getEmail());
+        cliente.setNome(dto.getNome());
+        cliente.setEndereco(dto.getEndereco());
+        cliente.setBairro(dto.getBairro());
+        cliente.setCidade(dto.getCidade());
+        cliente.setCpf(dto.getCpf());
+        cliente.setEmail(dto.getEmail());
     }
 }
