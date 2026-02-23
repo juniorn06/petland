@@ -25,7 +25,7 @@ public class ClienteService {
 
     @Transactional(readOnly = true)
     public List<Cliente> findClienteByNome(String nome){
-        List<Cliente> clienteList = clienteRepository.findClienteByNomeIgnoreCase(nome);
+        List<Cliente> clienteList = clienteRepository.findClienteByNomeContainingIgnoreCase(nome);
         if (clienteList.isEmpty()){
             throw new RuntimeException("Cliente não encontrado!");
         }
