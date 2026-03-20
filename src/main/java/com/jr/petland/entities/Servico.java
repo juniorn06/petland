@@ -26,6 +26,6 @@ public class Servico {
     @Column(name = "preco")
     private BigDecimal preco;
 
-    @Column(name = "tempo_minutos")
-    private Integer tempoEmMinutos;
+    @Column(name = "tempo_servico")
+    private Integer tempoServico;
 }
