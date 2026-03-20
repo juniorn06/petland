@@ -21,14 +21,19 @@ public class Animal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "TIPO_ANIMAL")
     private TipoAnimal tipoAnimal;
+
     @Column(name = "NOME")
     private String nome;
+
     @Column(name = "SEXO")
     private Sexo sexo;
+
     @Column(name = "DATA_NASCIMENTO")
     private LocalDate dataNascimento;
+
     @Column(name = "RACA")
     private String raca;
 }
