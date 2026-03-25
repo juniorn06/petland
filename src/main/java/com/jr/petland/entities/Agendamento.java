@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
@@ -23,7 +24,7 @@ public class Agendamento {
     private Long id;
 
     @Column(name = "data_hora")
-    private LocalDate dataHora;
+    private LocalDateTime dataHora;
 
     @ManyToOne
     @JoinColumn(name = "animal_id")
