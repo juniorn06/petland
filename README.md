@@ -41,7 +41,7 @@ Abaixo, a representação da estrutura de classes e relacionamentos:
 ## ⚙️ Como Executar o Projeto
 
 1. **Clone o repositório:**
-   git clone: [https://github.com/juniorn06/petland.git](https://github.com/juniorn06/petland)
+   [https://github.com/juniorn06/petland.git](https://github.com/juniorn06/petland)
 
 📌 Principais Funcionalidades
 [x] Cadastro de Clientes e Pets: Vínculo Many-to-One entre animais e donos.
