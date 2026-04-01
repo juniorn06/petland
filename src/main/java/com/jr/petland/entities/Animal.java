@@ -28,7 +28,7 @@ public class Animal {
     @Column(name = "NOME")
     private String nome;
 
-    @Column(name = "SEXO")
+    @Enumerated(EnumType.STRING)
     private Sexo sexo;
 
     @Column(name = "DATA_NASCIMENTO")
@@ -36,4 +36,9 @@ public class Animal {
 
     @Column(name = "RACA")
     private String raca;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
+
 }

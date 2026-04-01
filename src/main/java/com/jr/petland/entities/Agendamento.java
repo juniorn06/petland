@@ -26,14 +26,6 @@ public class Agendamento {
     @Column(name = "data_hora")
     private LocalDateTime dataHora;
 
-    @ManyToOne
-    @JoinColumn(name = "animal_id")
-    private Animal animal;
-
-    @ManyToOne
-    @JoinColumn(name = "servico_id")
-    private Servico servico;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "status_agendamento")
     private StatusAgendamento statusAgendamento;
@@ -41,4 +33,11 @@ public class Agendamento {
     @Column(name = "valor_total")
     private BigDecimal valorTotal;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "animal_id")
+    private Animal animal;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "servico_id")
+    private Servico servico;
 }

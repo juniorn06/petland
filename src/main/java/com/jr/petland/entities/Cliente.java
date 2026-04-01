@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -19,16 +21,25 @@ public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @Column(name = "NOME")
     private String nome;
+
     @Column(name = "ENDERECO")
     private String endereco;
+
     @Column(name = "BAIRRO")
     private String bairro;
+
     @Column(name = "CIDADE")
     private String cidade;
+
     @Column(name = "CPF")
     private String cpf;
+
     @Column(name = "EMAIL")
     private String email;
+
+    @OneToMany(mappedBy = "cliente")
+    private List<Animal> animais = new ArrayList<>();
 }
