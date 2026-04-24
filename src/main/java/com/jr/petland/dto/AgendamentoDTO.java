@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AgendamentoDTO {
+public class  AgendamentoDTO {
 
     private Long id;
     private LocalDateTime dataHora;
