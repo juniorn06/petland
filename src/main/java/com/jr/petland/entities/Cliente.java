@@ -1,10 +1,13 @@
 package com.jr.petland.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.br.CPF;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -20,26 +23,36 @@ public class Cliente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
-    @Column(name = "NOME")
+    @Column(name = "nome")
     private String nome;
 
-    @Column(name = "ENDERECO")
+    @Column(name = "endereco")
     private String endereco;
 
-    @Column(name = "BAIRRO")
+    @Column(name = "bairro")
     private String bairro;
 
-    @Column(name = "CIDADE")
+    @Column(name = "cidade")
     private String cidade;
 
-    @Column(name = "CPF")
+    @NotBlank @CPF
+    @Column(name = "cpf")
     private String cpf;
 
-    @Column(name = "EMAIL")
+    @Email
+    @Column(name = "email")
     private String email;
 
-    @OneToMany(mappedBy = "cliente")
+    @Column(name = "telefone")
+    private String telefone;
+
+    @OneToMany(mappedBy = "dono", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Animal> animais = new ArrayList<>();
+
+    public void adicionarAnimal(Animal animal) {
+        this.animais.add(animal);
+        animal.setDono(this);
+    }
 }
