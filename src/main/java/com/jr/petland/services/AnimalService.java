@@ -25,7 +25,7 @@ public class AnimalService {
 
     @Transactional(readOnly = true)
     public List<Animal> findAnimalByNome(String nome){
-        List<Animal> animalList = animalRepository.findAnimalByNomeContainingIgnoreCase(nome);
+        List<Animal> animalList = animalRepository.findByNomeContainingIgnoreCase(nome);
         if (animalList.isEmpty()){
             throw new RuntimeException("Animal não encontrado!");
         }

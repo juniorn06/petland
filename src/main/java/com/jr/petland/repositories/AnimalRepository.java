@@ -7,5 +7,11 @@ import java.util.List;
 
 public interface AnimalRepository extends JpaRepository<Animal, Long> {
 
-    List<Animal> findAnimalByNomeContainingIgnoreCase(String nome);
+    List<Animal> findByNomeContainingIgnoreCase(String nome);
+
+    List<Animal> findByDonoId(Long clienteId);
+
+    List<Animal> findByRacaIgnoreCase(String raca);
+
+    boolean existsByNomeAndDonoId(String nome, Long clienteId);
 }
