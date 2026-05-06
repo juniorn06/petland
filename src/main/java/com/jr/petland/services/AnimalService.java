@@ -25,11 +25,7 @@ public class AnimalService {
 
     @Transactional(readOnly = true)
     public List<Animal> findAnimalByNome(String nome){
-        List<Animal> animalList = animalRepository.findByNomeContainingIgnoreCase(nome);
-        if (animalList.isEmpty()){
-            throw new RuntimeException("Animal não encontrado!");
-        }
-        return animalList;
+        return animalRepository.findByNomeContainingIgnoreCase(nome);
     }
 
     @Transactional(readOnly = true)
@@ -51,7 +47,6 @@ public class AnimalService {
         try {
             Animal animal = animalRepository.getReferenceById(id);
             copyDtoToEntity(dto, animal);
-            animalRepository.save(animal);
             return new AnimalDTO(animal);
         }
         catch (EntityNotFoundException e){
@@ -73,5 +68,6 @@ public class AnimalService {
         animal.setSexo(dto.getSexo());
         animal.setDataNascimento(dto.getDataNascimento());
         animal.setRaca(dto.getRaca());
+        animal.setPeso(dto.getPeso());
     }
 }
