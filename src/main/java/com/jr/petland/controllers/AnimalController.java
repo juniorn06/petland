@@ -12,42 +12,50 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/animal")
+@RequestMapping(value = "/animais")
 public class AnimalController {
 
     @Autowired
     private AnimalService animalService;
 
-    @PostMapping(value = "insertAnimal")
+    public AnimalController(AnimalService animalService) {
+        this.animalService = animalService;
+    }
+
+    @PostMapping
     public ResponseEntity<AnimalDTO> insertAnimal(@Valid @RequestBody AnimalDTO dto){
         dto = animalService.insertAnimal(dto);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/id").buildAndExpand(dto.getId()).toUri();
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
     }
 
-    @GetMapping(value = "/findAnimalById/{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<AnimalDTO> findAnimalById(@PathVariable Long id) {
         AnimalDTO dto = animalService.findAnimalById(id);
         return ResponseEntity.ok(dto);
     }
 
-    @GetMapping(value = "findAll")
-    public ResponseEntity<List> getAnimais(){
-        return ResponseEntity.ok().body(animalService.findAll());
+    @GetMapping
+    public ResponseEntity<List<AnimalDTO>> findAll(){
+        List<AnimalDTO> list = animalService.findAll();
+        return ResponseEntity.ok(list);
     }
 
-    @GetMapping(value = "/findAnimalByNome/{nome}")
-    public ResponseEntity<List> findAnimalByNome(@PathVariable String nome){
-        return ResponseEntity.ok().body(animalService.findAnimalByNome(nome));
+   ; @GetMapping(value = "/nome/{nome}")
+    public ResponseEntity<List<AnimalDTO>> findAnimalByNome(@PathVariable String nome){
+        List<AnimalDTO> list = animalService.findAnimalByNome(nome);
+        return ResponseEntity.ok().body(list
+        );
     }
 
-    @PutMapping(value = "updateAnimal/{id}")
+    @PutMapping(value = "/{id}")
     public ResponseEntity<AnimalDTO> updateAnimal(@Valid @PathVariable Long id, @RequestBody AnimalDTO dto){
         return ResponseEntity.ok().body(animalService.updateAnimal(id, dto));
     }
 
-    @DeleteMapping(value = "deleteAnimal/{id}")
-    public void deleteAnimal(@PathVariable Long id){
-        animalService.deleteAnimal(id);
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> deleteAnimal(@PathVariable Long id){
+       animalService.deleteAnimal(id);
+       return ResponseEntity.noContent().build();
     }
 }

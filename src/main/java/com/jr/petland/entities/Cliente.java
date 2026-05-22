@@ -48,7 +48,7 @@ public class Cliente {
     @Column(name = "telefone")
     private String telefone;
 
-    @OneToMany(mappedBy = "dono", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "dono")
     private List<Animal> animais = new ArrayList<>();
 
     public void adicionarAnimal(Animal animal) {

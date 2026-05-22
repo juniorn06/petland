@@ -74,5 +74,6 @@ public class ClienteService {
         cliente.setCidade(dto.getCidade());
         cliente.setCpf(dto.getCpf());
         cliente.setEmail(dto.getEmail());
+        cliente.setTelefone(dto.getTelefone());
     }
 }

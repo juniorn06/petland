@@ -2,7 +2,9 @@ package com.jr.petland.services;
 
 import com.jr.petland.dto.AnimalDTO;
 import com.jr.petland.entities.Animal;
+import com.jr.petland.entities.Cliente;
 import com.jr.petland.repositories.AnimalRepository;
+import com.jr.petland.repositories.ClienteRepository;
 import com.jr.petland.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,9 @@ public class AnimalService {
     @Autowired
     private AnimalRepository animalRepository;
 
+    @Autowired
+    private ClienteRepository clienteRepository;
+
     @Transactional(readOnly = true)
     public AnimalDTO findAnimalById(Long id){
         Animal animal = animalRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Animal não encontrado"));
@@ -24,20 +29,23 @@ public class AnimalService {
     }
 
     @Transactional(readOnly = true)
-    public List<Animal> findAnimalByNome(String nome){
-        return animalRepository.findByNomeContainingIgnoreCase(nome);
+    public List<AnimalDTO> findAnimalByNome(String nome){
+        List<Animal> animalList = animalRepository.findByNomeContainingIgnoreCase(nome);
+        return animalList.stream().map(AnimalDTO::new).toList();
     }
 
     @Transactional(readOnly = true)
-    public List<Animal> findAll(){
+    public List<AnimalDTO> findAll(){
         List<Animal> findAll = animalRepository.findAll();
-        return findAll;
+        return findAll.stream().map(AnimalDTO::new).toList();
     }
 
     @Transactional
     public AnimalDTO insertAnimal(AnimalDTO dto){
         Animal animal = new Animal();
         copyDtoToEntity(dto, animal);
+        Cliente dono = clienteRepository.getReferenceById(dto.getDonoId());
+        dono.adicionarAnimal(animal);
         animalRepository.save(animal);
         return new AnimalDTO(animal);
     }
@@ -56,10 +64,11 @@ public class AnimalService {
 
     @Transactional
     public void deleteAnimal(Long id){
-        if (!animalRepository.existsById(id)){
-            throw new ResourceNotFoundException("Animal não encontrado!");
+        Animal animal = animalRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Animal não encontrado!"));
+        if (animal.getDono() != null) {
+            animal.getDono().getAnimais().remove(animal);
         }
-        animalRepository.deleteById(id);
+        animalRepository.delete(animal);
     }
 
     private void copyDtoToEntity(AnimalDTO dto, Animal animal){
@@ -69,5 +78,11 @@ public class AnimalService {
         animal.setDataNascimento(dto.getDataNascimento());
         animal.setRaca(dto.getRaca());
         animal.setPeso(dto.getPeso());
+        animal.setObservacoes(dto.getObservacoes());
+
+        if (dto.getDonoId() != null){
+            Cliente dono = clienteRepository.getReferenceById(dto.getDonoId());
+            animal.setDono(dono);
+        }
     }
 }

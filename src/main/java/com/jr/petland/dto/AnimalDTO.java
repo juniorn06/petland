@@ -35,9 +35,11 @@ public class AnimalDTO {
     @Positive(message = "O peso deve ser maior que zero")
     private Double peso;
 
+    private String observacoes;
+
     private LocalDateTime dataCadastro;
 
-    private Long clienteId;
+    private Long donoId;
 
 
     public AnimalDTO(Animal animal){
@@ -55,8 +57,10 @@ public class AnimalDTO {
 
         peso =  animal.getPeso();
 
+        observacoes = animal.getObservacoes();
+
         dataCadastro = animal.getDataCadastro();
 
-        clienteId = animal.getDono().getId();
+        donoId = animal.getDono().getId();
     }
 }
