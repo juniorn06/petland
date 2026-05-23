@@ -55,4 +55,9 @@ public class Cliente {
         this.animais.add(animal);
         animal.setDono(this);
     }
+
+    public void removerAnimal(Animal animal){
+        this.animais.remove(animal);
+        animal.setDono(null);
+    }
 }

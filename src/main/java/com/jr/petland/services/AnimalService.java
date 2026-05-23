@@ -66,7 +66,8 @@ public class AnimalService {
     public void deleteAnimal(Long id){
         Animal animal = animalRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Animal não encontrado!"));
         if (animal.getDono() != null) {
-            animal.getDono().getAnimais().remove(animal);
+            Cliente dono = animal.getDono();
+            dono.removerAnimal(animal);
         }
         animalRepository.delete(animal);
     }
