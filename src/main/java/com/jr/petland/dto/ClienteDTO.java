@@ -31,13 +31,14 @@ public class ClienteDTO {
     @Pattern(regexp = "^[a-zA-ZÀ-ÿ ]+$", message = "O campo cidade não pode conter caracteres especiais")
     private String cidade;
 
-    @CPF
+    @CPF(message = "O CPF informado é invaido!")
     @NotBlank(message = "O campo CPF é obrigatório!")
     private String cpf;
 
-    @Email
+    @Email(message = "O email informado não é válido!")
     private String email;
-    
+
+    @NotBlank(message = "O campo telefone é obrigatório!")
     private String telefone;
 
     public ClienteDTO(Cliente cliente){
