@@ -27,15 +27,15 @@ public class ClienteService {
     public List<Cliente> findClienteByNome(String nome){
         List<Cliente> clienteList = clienteRepository.findClienteByNomeContainingIgnoreCase(nome);
         if (clienteList.isEmpty()){
-            throw new RuntimeException("Cliente não encontrado!");
+            throw new RuntimeException("Cliente não encontrado!" + nome);
         }
         return clienteList;
     }
 
     @Transactional(readOnly = true)
-    public List<Cliente> findAll(){
+    public List<ClienteDTO> findAll(){
         List<Cliente> findAll = clienteRepository.findAll();
-        return findAll;
+        return findAll.stream().map(ClienteDTO::new).toList();
     }
 
     @Transactional
@@ -55,16 +55,14 @@ public class ClienteService {
             return new ClienteDTO(cliente);
         }
         catch (EntityNotFoundException e){
-            throw new ResourceNotFoundException("Cliente não encontrado!");
+            throw new ResourceNotFoundException("Cliente não encontrado!" + id);
         }
     }
 
     @Transactional
     public void deleteCliente(Long id){
-        if (!clienteRepository.existsById(id)){
-            throw new ResourceNotFoundException("Cliente não encontrado!");
-        }
-        clienteRepository.deleteById(id);
+        Cliente cliente = clienteRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado!" + id));
+        clienteRepository.delete(cliente);
     }
 
     private void copyDtoToEntity(ClienteDTO dto, Cliente cliente){
