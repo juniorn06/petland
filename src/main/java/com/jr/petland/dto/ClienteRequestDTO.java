@@ -7,12 +7,14 @@ import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClienteDTO {
+public class ClienteRequestDTO {
 
     private Long id;
 
@@ -24,11 +26,11 @@ public class ClienteDTO {
     private String endereco;
 
     @NotBlank(message = "O campo bairro é obrigatório!")
-    @Pattern(regexp = "^[a-zA-ZÀ-ÿ ]+$", message = "O campo bairro não pode conter caracteres especiais!")
+    @Pattern(regexp = "^[a-zA-ZÀ-ÿ0-9 ]+$", message = "O campo bairro não pode conter caracteres especiais!")
     private String bairro;
 
     @NotBlank(message = "O campo cidade é obrigatório!")
-    @Pattern(regexp = "^[a-zA-ZÀ-ÿ ]+$", message = "O campo cidade não pode conter caracteres especiais")
+    @Pattern(regexp = "^[a-zA-ZÀ-ÿ0-9 ]+$", message = "O campo cidade não pode conter caracteres especiais!")
     private String cidade;
 
     @CPF(message = "O CPF informado é invaido!")
@@ -39,16 +41,6 @@ public class ClienteDTO {
     private String email;
 
     @NotBlank(message = "O campo telefone é obrigatório!")
+    @Pattern(regexp = "^\\(?\\d{2}\\)?[\\s-]?\\d{4,5}-?\\d{4}$", message = "O telefone informado não é válido!")
     private String telefone;
-
-    public ClienteDTO(Cliente cliente){
-        id = cliente.getId();
-        nome = cliente.getNome();
-        endereco = cliente.getEndereco();
-        bairro = cliente.getBairro();
-        cidade = cliente.getCidade();
-        cpf = cliente.getCpf();
-        email = cliente.getEmail();
-        telefone = cliente.getTelefone();
-    }
 }

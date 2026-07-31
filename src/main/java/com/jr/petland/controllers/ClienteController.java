@@ -1,6 +1,6 @@
 package com.jr.petland.controllers;
 
-import com.jr.petland.dto.ClienteDTO;
+import com.jr.petland.dto.ClienteRequestDTO;
 import com.jr.petland.services.ClienteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,15 +19,15 @@ public class ClienteController {
     private ClienteService clienteService;
 
     @PostMapping(value = "insertCliente")
-    public ResponseEntity<ClienteDTO> insertCliente(@Valid @RequestBody ClienteDTO dto){
+    public ResponseEntity<ClienteRequestDTO> insertCliente(@Valid @RequestBody ClienteRequestDTO dto){
         dto = clienteService.insertCliente(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/id").buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
     }
 
     @GetMapping(value = "/findClienteById/{id}")
-    public ResponseEntity<ClienteDTO> findClienteById(@PathVariable Long id) {
-        ClienteDTO dto = clienteService.findClienteById(id);
+    public ResponseEntity<ClienteRequestDTO> findClienteById(@PathVariable Long id) {
+        ClienteRequestDTO dto = clienteService.findClienteById(id);
         return ResponseEntity.ok(dto);
     }
 
@@ -42,7 +42,7 @@ public class ClienteController {
     }
 
     @PutMapping(value = "updateCliente/{id}")
-    public ResponseEntity<ClienteDTO> updateCliente(@Valid @PathVariable Long id, @RequestBody ClienteDTO dto){
+    public ResponseEntity<ClienteRequestDTO> updateCliente(@Valid @PathVariable Long id, @RequestBody ClienteRequestDTO dto){
         return ResponseEntity.ok().body(clienteService.updateCliente(id, dto));
     }
 

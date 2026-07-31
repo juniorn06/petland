@@ -1,6 +1,6 @@
 package com.jr.petland.services;
 
-import com.jr.petland.dto.ClienteDTO;
+import com.jr.petland.dto.ClienteRequestDTO;
 import com.jr.petland.entities.Cliente;
 import com.jr.petland.repositories.ClienteRepository;
 import com.jr.petland.services.exceptions.ResourceNotFoundException;
@@ -18,9 +18,9 @@ public class ClienteService {
     private ClienteRepository clienteRepository;
 
     @Transactional(readOnly = true)
-    public ClienteDTO findClienteById(Long id){
+    public ClienteRequestDTO findClienteById(Long id){
         Cliente cliente = clienteRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado"));
-        return new ClienteDTO(cliente);
+        return new ClienteRequestDTO(cliente);
     }
 
     @Transactional(readOnly = true)
@@ -33,26 +33,26 @@ public class ClienteService {
     }
 
     @Transactional(readOnly = true)
-    public List<ClienteDTO> findAll(){
+    public List<ClienteRequestDTO> findAll(){
         List<Cliente> findAll = clienteRepository.findAll();
-        return findAll.stream().map(ClienteDTO::new).toList();
+        return findAll.stream().map(ClienteRequestDTO::new).toList();
     }
 
     @Transactional
-    public ClienteDTO insertCliente(ClienteDTO dto){
+    public ClienteRequestDTO insertCliente(ClienteRequestDTO dto){
         Cliente cliente = new Cliente();
         copyDtoToEntity(dto, cliente);
         clienteRepository.save(cliente);
-        return new ClienteDTO(cliente);
+        return new ClienteRequestDTO(cliente);
     }
 
     @Transactional()
-    public ClienteDTO updateCliente(Long id, ClienteDTO dto){
+    public ClienteRequestDTO updateCliente(Long id, ClienteRequestDTO dto){
         try {
             Cliente cliente = clienteRepository.getReferenceById(id);
             copyDtoToEntity(dto, cliente);
             clienteRepository.save(cliente);
-            return new ClienteDTO(cliente);
+            return new ClienteRequestDTO(cliente);
         }
         catch (EntityNotFoundException e){
             throw new ResourceNotFoundException("Cliente não encontrado!" + id);
@@ -65,7 +65,7 @@ public class ClienteService {
         clienteRepository.delete(cliente);
     }
 
-    private void copyDtoToEntity(ClienteDTO dto, Cliente cliente){
+    private void copyDtoToEntity(ClienteRequestDTO dto, Cliente cliente){
         cliente.setNome(dto.getNome());
         cliente.setEndereco(dto.getEndereco());
         cliente.setBairro(dto.getBairro());

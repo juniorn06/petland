@@ -38,11 +38,11 @@ public class Cliente {
     private String cidade;
 
     @NotBlank @CPF
-    @Column(name = "cpf")
+    @Column(name = "cpf", unique = true)
     private String cpf;
 
     @Email
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
     @Column(name = "telefone")
