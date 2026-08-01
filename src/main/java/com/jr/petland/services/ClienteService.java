@@ -1,6 +1,7 @@
 package com.jr.petland.services;
 
 import com.jr.petland.dto.ClienteRequestDTO;
+import com.jr.petland.dto.ClienteResponseDTO;
 import com.jr.petland.entities.Cliente;
 import com.jr.petland.repositories.ClienteRepository;
 import com.jr.petland.services.exceptions.ResourceNotFoundException;
@@ -18,45 +19,40 @@ public class ClienteService {
     private ClienteRepository clienteRepository;
 
     @Transactional(readOnly = true)
-    public ClienteRequestDTO findClienteById(Long id){
+    public ClienteResponseDTO findClienteById(Long id){
         Cliente cliente = clienteRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado"));
-        return new ClienteRequestDTO(cliente);
+        return new ClienteResponseDTO(cliente);
     }
 
     @Transactional(readOnly = true)
     public List<Cliente> findClienteByNome(String nome){
         List<Cliente> clienteList = clienteRepository.findClienteByNomeContainingIgnoreCase(nome);
         if (clienteList.isEmpty()){
-            throw new RuntimeException("Cliente não encontrado!" + nome);
+            throw new ResourceNotFoundException("Cliente não encontrado!" + nome);
         }
         return clienteList;
     }
 
     @Transactional(readOnly = true)
-    public List<ClienteRequestDTO> findAll(){
+    public List<ClienteResponseDTO> findAll(){
         List<Cliente> findAll = clienteRepository.findAll();
-        return findAll.stream().map(ClienteRequestDTO::new).toList();
+        return findAll.stream().map(ClienteResponseDTO::new).toList();
     }
 
     @Transactional
-    public ClienteRequestDTO insertCliente(ClienteRequestDTO dto){
+    public ClienteResponseDTO insertCliente(ClienteRequestDTO dto){
         Cliente cliente = new Cliente();
         copyDtoToEntity(dto, cliente);
         clienteRepository.save(cliente);
-        return new ClienteRequestDTO(cliente);
+        return new ClienteResponseDTO(cliente);
     }
 
     @Transactional()
-    public ClienteRequestDTO updateCliente(Long id, ClienteRequestDTO dto){
-        try {
-            Cliente cliente = clienteRepository.getReferenceById(id);
-            copyDtoToEntity(dto, cliente);
-            clienteRepository.save(cliente);
-            return new ClienteRequestDTO(cliente);
-        }
-        catch (EntityNotFoundException e){
-            throw new ResourceNotFoundException("Cliente não encontrado!" + id);
-        }
+    public ClienteResponseDTO updateCliente(Long id, ClienteRequestDTO dto){
+        Cliente cliente = clienteRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado!" + id));
+        copyDtoToEntity(dto, cliente);
+        clienteRepository.save(cliente);
+        return new ClienteResponseDTO(cliente);
     }
 
     @Transactional
