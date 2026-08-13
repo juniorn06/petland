@@ -19,35 +19,35 @@ public class ClienteController {
     @Autowired
     private ClienteService clienteService;
 
-    @PostMapping(value = "/insertCliente")
+    @PostMapping
     public ResponseEntity<ClienteResponseDTO> insertCliente(@Valid @RequestBody ClienteRequestDTO dto){
         ClienteResponseDTO responseDTO = clienteService.insertCliente(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/id").buildAndExpand(responseDTO.getId()).toUri();
         return ResponseEntity.created(uri).body(responseDTO);
     }
 
-    @GetMapping(value = "/findClienteById/{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<ClienteResponseDTO> findClienteById(@PathVariable Long id) {
         ClienteResponseDTO dto = clienteService.findClienteById(id);
         return ResponseEntity.ok(dto);
     }
 
-    @GetMapping(value = "findAll")
+    @GetMapping
     public ResponseEntity<List<ClienteResponseDTO>> getClientes(){
         return ResponseEntity.ok().body(clienteService.findAll());
     }
 
-    @GetMapping(value = "/findClienteByNome/{nome}")
+    @GetMapping(value = "/nome/{nome}")
     public ResponseEntity<List> findClienteByNome(@PathVariable String nome){
         return ResponseEntity.ok().body(clienteService.findClienteByNome(nome));
     }
 
-    @PutMapping(value = "updateCliente/{id}")
+    @PutMapping(value = "/{id}")
     public ResponseEntity<ClienteResponseDTO> updateCliente(@Valid @PathVariable Long id, @RequestBody ClienteRequestDTO dto){
         return ResponseEntity.ok().body(clienteService.updateCliente(id, dto));
     }
 
-    @DeleteMapping(value = "deleteCliente/{id}")
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteCliente(@PathVariable Long id){
         clienteService.deleteCliente(id);
         return ResponseEntity.noContent().build();
