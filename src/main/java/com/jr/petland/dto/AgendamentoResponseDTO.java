@@ -5,14 +5,16 @@ import com.jr.petland.enums.StatusAgendamento;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class  AgendamentoDTO {
+public class AgendamentoResponseDTO {
 
     private Long id;
     private LocalDateTime dataHora;
@@ -23,7 +25,7 @@ public class  AgendamentoDTO {
     private Long servicoId;
     private String descricaoServico;
 
-    public AgendamentoDTO(Agendamento agendamento){
+    public AgendamentoResponseDTO(Agendamento agendamento){
         this.id = agendamento.getId();
         this.dataHora = agendamento.getDataHora();
         this.statusAgendamento = agendamento.getStatusAgendamento();
