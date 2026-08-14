@@ -2,6 +2,7 @@ package com.jr.petland.entities;
 
 import com.jr.petland.enums.StatusAgendamento;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,10 +25,12 @@ public class Agendamento {
     private Long id;
 
     @Column(name = "data_hora")
+    @NotNull(message = "O agendamento deve ter data e horário!")
     private LocalDateTime dataHora;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status_agendamento")
+    @NotNull(message = "O agendamento deve ter um status definido!")
     private StatusAgendamento statusAgendamento;
 
     @Column(name = "valor_total")
@@ -35,9 +38,11 @@ public class Agendamento {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "animal_id")
+    @NotNull(message = "O agendamento deve ter um animal vinculado!")
     private Animal animal;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "servico_id")
+    @NotNull(message = "O agendamento deve ter um serviço vinculado!")
     private Servico servico;
 }
