@@ -1,7 +1,10 @@
 package com.jr.petland.services;
 
+import com.jr.petland.dto.AgendamentoRequestDTO;
 import com.jr.petland.dto.AgendamentoResponseDTO;
 import com.jr.petland.entities.Agendamento;
+import com.jr.petland.entities.Animal;
+import com.jr.petland.entities.Servico;
 import com.jr.petland.repositories.AgendamentoRepository;
 import com.jr.petland.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +30,11 @@ public class AgendamentoService {
     public List<AgendamentoResponseDTO> findAll(){
          List<Agendamento> agendamentos = agendamentoRepository.findAll();
          return agendamentos.stream().map(AgendamentoResponseDTO::new).toList();
+    }
+
+    public void copyToDTO(AgendamentoRequestDTO dto, Agendamento agendamento, Animal animal, Servico servico){
+        agendamento.setDataHora(dto.getDataHora());
+        agendamento.setAnimal(animal);
+        agendamento.setServico(servico);
     }
 }
